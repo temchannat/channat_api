@@ -56,6 +56,9 @@ Route::delete('/tasks/{id}', function(Request $request, $id){
 	return response() -> json(['message' => 'Deleted']);
 });
 
+Route::post('/hello', function(Request $request) {
+    return response()->json(['person' => $request->input('person')]);
+});
 
 
 
