@@ -45,7 +45,7 @@ Route::post('/tasks', function(Request $request){
 });
 
 Route::patch('/tasks/{id}/finished', function(Request $request, $id){
-	DB::update('UPDATE tasks SET finished = 1 WHERE id = ?', [$id]);
+	DB::update('UPDATE tasks SET finished = true WHERE id = ?', [$id]);
 	return response() -> json(['id' => $id]);
 
 });
