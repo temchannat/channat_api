@@ -1,4 +1,12 @@
 <?php
+$databaseURL = getenv('DATABASE_URL');
+if($databaseURL==false)
+    $databaseURL = 'postgres://temchannat:root@localhost:5432/todos';
+
+$databaseURLDictionary = parse_url($databaseURL); // return dicationary
+$databasePath = $databaseURLDictionary['path'];
+$databaseName = explode("/", $databasePath);
+
 
 return [
 
@@ -26,7 +34,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => 'pgsql',
 
     /*
     |--------------------------------------------------------------------------
@@ -68,11 +76,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $databaseURLDictionary['host'],
+            'port' => $databaseURLDictionary['port'],
+            'database' => $databaseName[1],
+            'username' => $databaseURLDictionary['user'],
+            'password' => $databaseURLDictionary['pass'],
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
